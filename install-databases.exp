@@ -4,7 +4,7 @@ spawn ./InstallDatabases.sh
 
 expect "Please select an activity :" { sleep 1; send "n\r" }
 # address
-expect ": " { sleep 1; send "127.0.0.1\r" }
+expect ": " { sleep 1; send "mangos-mariadb\r" }
 # user
 expect ": " { sleep 1; send "root\r" }
 # port

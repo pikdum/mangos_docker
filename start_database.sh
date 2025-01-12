@@ -1,17 +1,22 @@
 #!/usr/bin/env bash
 set -eu
 
+NETWORK="mangos-net"
 DB_CONTAINER="mangos-mariadb"
 DB_PASSWORD="mangos"
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 INSTALL_FILE="$SCRIPT_DIR/install-databases.exp"
+
+docker network create \
+    --driver bridge \
+    $NETWORK
 
 docker run \
     --rm \
     -d \
     --name "$DB_CONTAINER" \
     -e MARIADB_ROOT_PASSWORD="$DB_PASSWORD" \
-    --net=host \
+    --network "$NETWORK" \
     -t mariadb:latest
 
 echo "Waiting for mariadb..."
@@ -23,7 +28,7 @@ docker run \
     --rm \
     -v "$INSTALL_FILE:/install-databases.exp:ro" \
     -e DB_PASSWORD="$DB_PASSWORD" \
-    --net=host \
+    --network "$NETWORK" \
     -i ubuntu:24.04 bash <<'EOF'
 echo "Installing dependencies..."
 export DEBIAN_FRONTEND=noninteractive

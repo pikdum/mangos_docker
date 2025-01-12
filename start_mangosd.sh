@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 
+NETWORK="mangos-net"
 IMAGE="mangos"
 CONTAINER="mangos-mangosd"
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
@@ -10,7 +11,8 @@ mkdir -p logs
 docker run \
     --rm \
     --name "$CONTAINER" \
-    --net=host \
+    --network "$NETWORK" \
+    -p 8085:8085 \
     -v "$SCRIPT_DIR/generated":/data:ro \
     -v "$SCRIPT_DIR/logs":/logs \
     -v "$SCRIPT_DIR/mangosd.conf":/etc/mangosd.conf:ro \
