@@ -30,7 +30,7 @@ account create test test
 account set gmlevel test 3
 
 # to connect, change server to 127.0.0.1:3725 in realmlist.wtf
-# useful logs in _logs/_
+# useful logs in _logs/
 ```
 
 ## removing
