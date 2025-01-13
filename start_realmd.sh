@@ -10,6 +10,6 @@ docker run \
     --rm \
     --name "$CONTAINER" \
     --network "$NETWORK" \
-    -p 3724:3724 \
+    -p 3725:3725 \
     -v "$SCRIPT_DIR/realmd.conf":/etc/realmd.conf:ro \
     -t "$IMAGE" realmd

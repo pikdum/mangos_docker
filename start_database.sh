@@ -7,6 +7,9 @@ DB_PASSWORD="mangos"
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 INSTALL_FILE="$SCRIPT_DIR/install-databases.exp"
 
+docker stop "$DB_CONTAINER" || true
+docker network rm "$NETWORK" || true
+
 docker network create \
     --driver bridge \
     $NETWORK
@@ -27,9 +30,10 @@ done
 docker run \
     --rm \
     -v "$INSTALL_FILE:/install-databases.exp:ro" \
+    -e DB_CONTAINER="$DB_CONTAINER" \
     -e DB_PASSWORD="$DB_PASSWORD" \
     --network "$NETWORK" \
-    -i ubuntu:24.04 bash <<'EOF'
+    -i ubuntu:24.04 bash <<"EOF"
 echo "Installing dependencies..."
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
@@ -41,4 +45,7 @@ cd database/
 git submodule update --init
 cp /install-databases.exp .
 ./install-databases.exp
+
+mariadb -h "$DB_CONTAINER" -uroot -p"$DB_PASSWORD" -D realmd  -e "UPDATE realmlist SET port=8086;"
+
 EOF
