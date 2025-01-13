@@ -3,7 +3,7 @@ set -euo pipefail
 
 IMAGE="mangos"
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
-OUTPUT_DIR="$(realpath "$SCRIPT_DIR/generated/")"
+OUTPUT_DIR="$(realpath "$SCRIPT_DIR/_generated/")"
 
 echo "Using World of Warcraft at: $WOW_DIR"
 echo "Generating files to: $OUTPUT_DIR"

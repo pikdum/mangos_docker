@@ -7,15 +7,11 @@ DB_PASSWORD="mangos"
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 INSTALL_FILE="$SCRIPT_DIR/install-databases.exp"
 
-docker stop "$DB_CONTAINER" || true
-docker network rm "$NETWORK" || true
-
 docker network create \
     --driver bridge \
-    $NETWORK
+    $NETWORK || true
 
 docker run \
-    --rm \
     -d \
     --name "$DB_CONTAINER" \
     -e MARIADB_ROOT_PASSWORD="$DB_PASSWORD" \
