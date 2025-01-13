@@ -5,6 +5,9 @@ an easy way to run mangos locally in docker for testing
 ## running
 
 ``` bash
+docker pull ghcr.io/pikdum/mangos_docker
+# or: docker build . -t ghcr.io/pikdum/mangos_docker
+
 # path to vanilla client, the directory with WoW.exe
 # you'll want version 1.12.1 build 5875
 # this is for ./generate.sh
