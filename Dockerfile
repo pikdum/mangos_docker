@@ -32,4 +32,6 @@ RUN git clone https://github.com/mangoszero/server.git \
     && make install \
     && cp /app/server/_install/bin/tools/* /usr/local/bin/ \
     && cp /app/server/_install/bin/mangosd /usr/local/bin \
-    && cp /app/server/_install/bin/realmd /usr/local/bin
+    && cp /app/server/_install/bin/realmd /usr/local/bin \
+    && rm -rf /app
+WORKDIR /

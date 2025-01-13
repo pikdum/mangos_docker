@@ -2,11 +2,14 @@
 set -eu
 
 NETWORK="mangos-net"
-IMAGE="mangos"
+IMAGE="ghcr.io/pikdum/mangos_docker"
 CONTAINER="mangos-mangosd"
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+GENERATED_DIR="$SCRIPT_DIR/../_generated"
+LOG_DIR="$SCRIPT_DIR/../_logs"
+CONF_FILE="$SCRIPT_DIR/../conf/mangosd.conf"
 
-mkdir -p logs
+mkdir -p "$LOG_DIR"
 
 docker run \
     --user "$(id -u):$(id -g)" \
@@ -14,7 +17,7 @@ docker run \
     --name "$CONTAINER" \
     --network "$NETWORK" \
     -p 8086:8086 \
-    -v "$SCRIPT_DIR/../_generated":/data:ro \
-    -v "$SCRIPT_DIR/../logs":/logs \
-    -v "$SCRIPT_DIR/../conf/mangosd.conf":/etc/mangosd.conf:ro \
+    -v "$GENERATED_DIR":/data:ro \
+    -v "$LOG_DIR":/logs \
+    -v "$CONF_FILE":/etc/mangosd.conf:ro \
     -it "$IMAGE" mangosd

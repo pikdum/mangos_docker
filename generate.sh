@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-IMAGE="mangos"
+IMAGE="ghcr.io/pikdum/mangos_docker"
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 OUTPUT_DIR="$(realpath "$SCRIPT_DIR/_generated/")"
 

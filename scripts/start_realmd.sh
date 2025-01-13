@@ -2,9 +2,10 @@
 set -eu
 
 NETWORK="mangos-net"
-IMAGE="mangos"
+IMAGE="ghcr.io/pikdum/mangos_docker"
 CONTAINER="mangos-realmd"
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+CONF_FILE="$SCRIPT_DIR/../conf/realmd.conf"
 
 docker run \
     --user "$(id -u):$(id -g)" \
@@ -13,5 +14,5 @@ docker run \
     --name "$CONTAINER" \
     --network "$NETWORK" \
     -p 3725:3725 \
-    -v "$SCRIPT_DIR/../conf/realmd.conf":/etc/realmd.conf:ro \
+    -v "$CONF_FILE":/etc/realmd.conf:ro \
     -t "$IMAGE" realmd
