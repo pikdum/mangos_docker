@@ -14,9 +14,10 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 RUN update-alternatives --install /usr/bin/cc cc /usr/bin/clang 100 \
     && update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang 100
-RUN git clone https://github.com/pikdum/mangos-zero.git server \
+COPY ./patches/ /app/patches
+RUN git clone --recurse-submodules https://github.com/mangoszero/server.git \
     && cd server \
-    && git submodule update --init \
+    && git apply /app/patches/*.patch \
     && mkdir _build _install \
     && cd _build \
     && cmake .. -DCMAKE_INSTALL_PREFIX=/app/server/_install \

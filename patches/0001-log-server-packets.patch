@@ -1,0 +1,25 @@
+From 43630041ba0590979bc9807a8641befa62c00c50 Mon Sep 17 00:00:00 2001
+From: pikdum <pikdum@kuudere.moe>
+Date: Thu, 16 Jan 2025 09:03:45 -0600
+Subject: [PATCH] feat: log server packets as well
+
+---
+ src/game/Server/WorldSocket.cpp | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/game/Server/WorldSocket.cpp b/src/game/Server/WorldSocket.cpp
+index 0f1049d5..298c09ec 100644
+--- a/src/game/Server/WorldSocket.cpp
++++ b/src/game/Server/WorldSocket.cpp
+@@ -150,6 +150,8 @@ int WorldSocket::SendPacket(const WorldPacket& pkt)
+ 
+     WorldPacket pct = pkt;
+ 
++    sLog.outWorldPacketDump(uint32(get_handle()), pct.GetOpcode(), pct.GetOpcodeName(), &pct, false);
++
+     if (iSendPacket(pct) == -1)
+     {
+         WorldPacket* npct;
+-- 
+2.48.1
+
