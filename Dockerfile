@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 RUN update-alternatives --install /usr/bin/cc cc /usr/bin/clang 100 \
     && update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang 100
-RUN git clone https://github.com/mangoszero/server.git \
+RUN git clone https://github.com/pikdum/mangos-zero.git server \
     && cd server \
     && git submodule update --init \
     && mkdir _build _install \
